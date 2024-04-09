@@ -1,0 +1,41 @@
+CREATE TABLE Genres (
+  GenreID INT PRIMARY KEY,
+  Name VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Films (
+  FilmID INT PRIMARY KEY,
+  Title VARCHAR(100) NOT NULL,
+  ReleaseDate DATE NOT NULL,
+  IMDbRating DECIMAL(3, 1) NOT NULL,
+  GenreID INT NOT NULL,
+  FOREIGN KEY (GenreID) REFERENCES Genres(GenreID)  
+);
+
+CREATE TABLE Actors (
+  ActorID INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL,
+  DOB DATE
+);
+
+CREATE TABLE Directors (
+  DirectorID INT PRIMARY KEY,
+  Name VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE FilmsActors (
+  FilmID INT,
+  ActorID INT,
+  Role VARCHAR(50) NOT NULL,
+  PRIMARY KEY (FilmID, ActorID),
+  FOREIGN KEY (FilmID) REFERENCES Films(FilmID),
+  FOREIGN KEY (ActorID) REFERENCES Actors(ActorID)
+);
+
+CREATE TABLE FilmsDirectors (
+  FilmID INT,
+  DirectorID INT,
+  PRIMARY KEY (FilmID, DirectorID),
+  FOREIGN KEY (FilmID) REFERENCES Films(FilmID),
+  FOREIGN KEY (DirectorID) REFERENCES Directors(DirectorID)
+);
